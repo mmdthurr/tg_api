@@ -1,0 +1,45 @@
+from tg.message import Message
+from tg.inlinequery import InlineQuery
+from tg.choseninlineresult import ChosenInlineResult
+from tg.callbackquery import CallbackQuery
+
+
+class Update:
+    def __init__(
+            self,
+            update_id: int,
+            message: Message,
+            inline_query: InlineQuery,
+            chosen_inline_result: ChosenInlineResult,
+            callback_query: CallbackQuery
+    ):
+        self.update_id = update_id
+        self.message = message
+        self.inline_query = inline_query
+        self.chosen_inline_result = chosen_inline_result
+        self.callback_query = callback_query
+
+    @property
+    def current_update(self):
+        if self.message:
+            return self.message
+        if self.inline_query:
+            return self.inline_query
+        if self.chosen_inline_result:
+            return self.chosen_inline_result
+        if self.callback_query:
+            return self.callback_query
+
+    @property
+    def current_user(self):
+        return self.current_update.from_user
+
+    @classmethod
+    def dec_update(cls, update: dict):
+        return cls(
+            update_id=update.get('update_id'),
+            message=Message.message_dec(update.get('message')),
+            inline_query=InlineQuery.inline_query_dec(update.get('inline_query')),
+            chosen_inline_result=ChosenInlineResult.chosen_inline_result_dec(update.get('chosen_inline_result')),
+            callback_query=CallbackQuery.callback_query_dec(update.get('callback_query'))
+        )
