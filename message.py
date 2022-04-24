@@ -8,7 +8,7 @@ class Message:
             self,
             message_id: int,
             from_user: User,
-            sender_chat: Chat,
+            chat: Chat,
             reply_to_message: 'Message',
             text: str,
             audio,
@@ -21,7 +21,7 @@ class Message:
     ):
         self.message_id = message_id
         self.from_user = from_user
-        self.sender_chat = sender_chat
+        self.chat = chat
         self.reply_to_message = reply_to_message
         self.text = text
         self.audio = audio
@@ -47,7 +47,7 @@ class Message:
             return cls(
                 message_id=message.get('message_id'),
                 from_user=User.user_dec(message.get('from')),
-                sender_chat=Chat.chat_dec(message.get('sender_chat')),
+                chat=Chat.chat_dec(message.get('chat')),
                 reply_to_message=Message.message_dec(message.get('reply_to_message')),
                 text=message.get('text'),
                 audio=message.get('audio'),
