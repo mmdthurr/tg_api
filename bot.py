@@ -11,6 +11,7 @@ class Methods(Enum):
     deleteMessage = 'deleteMessage'
     editMessageText = 'editMessageText'
     editMessageReplyMarkup = 'editMessageReplyMarkup'
+    getChat = 'getChat'
 
 
 class Bot:
@@ -59,7 +60,8 @@ class Bot:
             self,
             chat_id,
             from_chat_id,
-            message_id,
+            message_id: int,
+            reply_to_message_id: int,
             allow_sending_without_reply: True,
             reply_markup
     ):
@@ -69,7 +71,8 @@ class Bot:
             'message_id': message_id,
             'allow_sending_without_reply': allow_sending_without_reply
         }
-
+        if reply_to_message_id:
+            param['reply_to_message_id'] = reply_to_message_id
         if reply_markup:
             param['reply_markup'] = reply_markup
 
@@ -77,11 +80,11 @@ class Bot:
 
     def answer_callback_query(
             self,
-            callback_query_id,
-            text,
-            show_alert,
-            url,
-            cache_time
+            callback_query_id: str,
+            text: str = None,
+            show_alert: bool = None,
+            url: str = None,
+            cache_time: int = None
     ):
         param = {
             'callback_query_id': callback_query_id,
@@ -176,3 +179,12 @@ class Bot:
         if reply_markup:
             param['reply_markup'] = reply_markup
         return self.request_(Methods.editMessageReplyMarkup, param)
+
+    def get_chat(
+            self,
+            chat_id
+    ):
+        param = {
+            'chat_id': chat_id
+        }
+        return self.request_(Methods.getChat, param)
