@@ -4,6 +4,7 @@ class Context:
     ):
 
         self._user_data = dict()
+        self._user_lang = dict()
         self._conv_stage = dict()
         self._updates_ids = list()
 
@@ -12,6 +13,12 @@ class Context:
 
     def user_data_setter(self, user_id, data):
         self._user_data[user_id] = data
+
+    def user_lang(self, user_id):
+        return self._user_lang.get(user_id)
+
+    def user_lang_setter(self, user_id, lang):
+        self._user_lang[user_id] = lang
 
     def user_conv_stage(self, user_id):
         return self._conv_stage.get(user_id)
@@ -27,4 +34,3 @@ class Context:
         else:
             self._updates_ids.append(update_id)
             return False
-
