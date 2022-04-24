@@ -7,12 +7,12 @@ class Switch(Enum):
     Other = 'switch_inline_query'
 
 
-def reply_markup(
+def keyboard_markup(
         keyboard,
-        resize_keyboard,
-        one_time_keyboard,
-        input_field_placeholder,
-        selective
+        resize_keyboard=None,
+        one_time_keyboard=None,
+        input_field_placeholder=None,
+        selective=None
 ):
     markup = {
         'keyboard': keyboard,
@@ -77,3 +77,15 @@ def switch_inline(
         switch.value: switch_str,
     }
     return button
+
+
+def reply_keyboard_remove(
+        selective: bool =None
+
+):
+    param = {
+        'remove_keyboard': True
+    }
+    if selective:
+        param['selective'] = selective
+    return param
