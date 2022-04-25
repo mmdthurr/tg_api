@@ -1,4 +1,4 @@
-from tg.objects.user import User
+from .objects.user import User
 
 
 class ChosenInlineResult:

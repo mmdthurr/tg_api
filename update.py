@@ -1,7 +1,7 @@
-from tg.message import Message
-from tg.inlinequery import InlineQuery
-from tg.choseninlineresult import ChosenInlineResult
-from tg.callbackquery import CallbackQuery
+from .message import Message
+from .inlinequery import InlineQuery
+from .choseninlineresult import ChosenInlineResult
+from .callbackquery import CallbackQuery
 
 
 class Update:

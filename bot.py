@@ -1,5 +1,5 @@
 from enum import Enum, unique
-from tg.utils.utils import Url
+from .utils.utils import Url
 
 
 @unique

@@ -1,5 +1,5 @@
-from tg.objects.user import User
-from tg.message import Message
+from .objects.user import User
+from .message import Message
 
 
 class CallbackQuery:
