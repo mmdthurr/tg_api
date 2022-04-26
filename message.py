@@ -1,6 +1,7 @@
 from .objects.user import User
 from .objects.voice import Voice
 from .objects.chat import Chat
+from .objects.inlinekeyboardmarkup import InlineKeyboardMarkup
 
 
 class Message:
@@ -17,7 +18,8 @@ class Message:
             voice,
             caption,
             caption_entities,
-            entities: list
+            entities: list,
+            reply_markup: InlineKeyboardMarkup
     ):
         self.message_id = message_id
         self.from_user = from_user
@@ -31,6 +33,7 @@ class Message:
         self.caption = caption
         self.caption_entities = caption_entities
         self.entities = entities
+        self.reply_markup = reply_markup
 
     @property
     def arg(self):
@@ -56,5 +59,6 @@ class Message:
                 voice=Voice.voice_dec(message.get('voice')),
                 caption=message.get('caption'),
                 caption_entities=message.get('caption_entities'),
-                entities=message.get('entities')
+                entities=message.get('entities'),
+                reply_markup=InlineKeyboardMarkup.inline_keyboard_markup_dec(message.get('reply_markup'))
             )
