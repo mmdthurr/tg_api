@@ -1,16 +1,11 @@
 import requests
-from fake_useragent import UserAgent
 
 
 class Req:
-    _agent = UserAgent()
 
     @staticmethod
     def session():
         session = requests.Session()
-        session.headers.update({
-            "User-Agent": Req._agent.chrome
-        })
         return session
 
 
@@ -33,4 +28,3 @@ class Url:
     @property
     def path_array(self):
         return self.url.split('://')[1].split('/')[1:]
-
