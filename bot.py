@@ -18,10 +18,14 @@ class Bot:
     def __init__(
             self,
             token,
-            session
+            session,
+            context,
+            update
     ):
         self.token = token
         self.session = session
+        self.context = context
+        self.update = update
 
     def request_(self, method: Methods, param: dict):
         url = Url('https://api.telegram.org/bot').url_join(f'{self.token}/{method.value}')
@@ -29,14 +33,14 @@ class Bot:
 
     def send_message(
             self,
-            chat_id: object,
-            text: object,
-            parse_mode: object = None,
-            entities: object = None,
+            chat_id,
+            text,
+            parse_mode=None,
+            entities=None,
             disable_web_page_preview=True,
-            reply_to_message_id: object = None,
-            allow_sending_without_reply: object = True,
-            reply_markup: object = None
+            reply_to_message_id=None,
+            allow_sending_without_reply=True,
+            reply_markup=None
     ):
 
         param = {
@@ -49,6 +53,34 @@ class Bot:
             param['entities'] = entities
         if disable_web_page_preview:
             param['disable_web_page_preview'] = disable_web_page_preview
+        if reply_to_message_id:
+            param['reply_to_message_id'] = reply_to_message_id
+            param['allow_sending_without_reply'] = allow_sending_without_reply
+        if reply_markup:
+            param['reply_markup'] = reply_markup
+        return self.request_(Methods.sendMessage, param)
+
+    def send_video(
+            self,
+            chat_id,
+            video,
+            caption=None,
+            parse_mode=None,
+            caption_entities=None,
+            reply_to_message_id=None,
+            allow_sending_without_reply=True,
+            reply_markup=None
+    ):
+        param = {
+            'chat_id': chat_id,
+            'video': video,
+        }
+        if caption:
+            param['caption'] = caption
+        if parse_mode:
+            param['parse_mode'] = parse_mode
+        if caption_entities:
+            param['caption_entities'] = caption_entities
         if reply_to_message_id:
             param['reply_to_message_id'] = reply_to_message_id
             param['allow_sending_without_reply'] = allow_sending_without_reply
@@ -188,3 +220,16 @@ class Bot:
             'chat_id': chat_id
         }
         return self.request_(Methods.getChat, param)
+
+    @property
+    def user_data(self):
+        return self.context.user_data(
+            self.update.current_user.user_id
+        )
+
+    @user_data.setter
+    def user_data(self, data):
+        self.context.user_data_setter(
+            user_id=self.update.current_user.user_id,
+            data=data
+        )
