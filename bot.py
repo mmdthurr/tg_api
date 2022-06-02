@@ -4,6 +4,7 @@ from .utils.utils import Url
 
 @unique
 class Methods(Enum):
+    sendVideo = 'sendVideo'
     sendMessage = 'sendMessage'
     copyMessage = 'copyMessage'
     answerCallbackQuery = 'answerCallbackQuery'
@@ -86,7 +87,7 @@ class Bot:
             param['allow_sending_without_reply'] = allow_sending_without_reply
         if reply_markup:
             param['reply_markup'] = reply_markup
-        return self.request_(Methods.sendMessage, param)
+        return self.request_(Methods.sendVideo, param)
 
     def copy_message(
             self,
