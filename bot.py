@@ -234,3 +234,6 @@ class Bot:
             user_id=self.update.current_user.user_id,
             data=data
         )
+
+    def remove_user_data(self):
+        self.context.user_data_remover(user_id=self.update.current_user.user_id)
