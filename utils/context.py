@@ -14,6 +14,9 @@ class Context:
     def user_data_setter(self, user_id, data):
         self._user_data[user_id] = data
 
+    def user_data_remover(self, user_id):
+        del self._user_data[user_id]
+
     def user_lang(self, user_id):
         return self._user_lang.get(user_id)
 
