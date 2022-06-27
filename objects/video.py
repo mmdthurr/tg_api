@@ -15,10 +15,11 @@ class Video:
 
     @classmethod
     def video_dec(cls, video: dict):
-        return cls(
-            file_id=video.get('file_id'),
-            file_unique_id=video.get('file_unique_id'),
-            file_name=video.get('file_name'),
-            mime_type=video.get('mime_type'),
-            file_size=video.get('file_size'),
-        )
+        if video:
+            return cls(
+                file_id=video.get('file_id'),
+                file_unique_id=video.get('file_unique_id'),
+                file_name=video.get('file_name'),
+                mime_type=video.get('mime_type'),
+                file_size=video.get('file_size'),
+            )
