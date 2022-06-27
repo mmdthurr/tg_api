@@ -1,7 +1,5 @@
-from .objects.user import User
-from .objects.voice import Voice
-from .objects.chat import Chat
 from .objects.inlinekeyboardmarkup import InlineKeyboardMarkup
+from .objects import User, Video, Voice, Chat
 
 
 class Message:
@@ -16,7 +14,7 @@ class Message:
             photo,
             video,
             voice,
-            caption,
+            caption: str,
             caption_entities,
             entities: list,
             reply_markup: InlineKeyboardMarkup
@@ -55,7 +53,7 @@ class Message:
                 text=message.get('text'),
                 audio=message.get('audio'),
                 photo=message.get('photo'),
-                video=message.get('video'),
+                video=Video.video_dec(message.get('video')),
                 voice=Voice.voice_dec(message.get('voice')),
                 caption=message.get('caption'),
                 caption_entities=message.get('caption_entities'),
